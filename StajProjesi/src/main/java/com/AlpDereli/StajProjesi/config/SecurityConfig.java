@@ -4,6 +4,7 @@ package com.AlpDereli.StajProjesi.config;
 
 import com.AlpDereli.StajProjesi.security.JWTRequestFilter;
 import com.AlpDereli.StajProjesi.security.JWTutil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -22,13 +23,22 @@ import org.springframework.security.config.annotation.authentication.configurati
 @EnableWebSecurity
 public class SecurityConfig {
 
+    @Autowired
     private final JWTRequestFilter jwtRequestFilter;
-    public SecurityConfig(JWTRequestFilter jwtRequestFilter) {
+
+    @Autowired
+    private final JWTutil jwtutil;
+
+
+    @Autowired
+    public SecurityConfig(JWTRequestFilter jwtRequestFilter, JWTutil jwtutil) {
         this.jwtRequestFilter = jwtRequestFilter;
+
+        this.jwtutil = jwtutil;
     }
 
 
-    private JWTutil jwTutil;
+    //private JWTutil jwTutil;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

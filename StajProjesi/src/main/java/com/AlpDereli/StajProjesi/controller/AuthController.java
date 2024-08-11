@@ -24,7 +24,16 @@ public class AuthController {
         return ResponseEntity.ok(new AuthenticationResponse(token));
     }
 
-    @Getter
-        public record AuthenticationResponse(String jwt) {
+
+    public static class AuthenticationResponse {
+        private final String jwt;
+
+        public AuthenticationResponse(String jwt) {
+            this.jwt = jwt;
+        }
+
+        public String getJwt() {
+            return jwt;
+        }
     }
 }
