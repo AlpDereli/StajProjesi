@@ -1,4 +1,4 @@
-package com.AlpDereli.StajProjesi.controller;
+/*package com.AlpDereli.StajProjesi.controller;
 
 import com.AlpDereli.StajProjesi.security.JWTutil;
 import lombok.Getter;
@@ -36,4 +36,4 @@ public class AuthController {
             return jwt;
         }
     }
-}
+}*/

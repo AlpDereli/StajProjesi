@@ -24,6 +24,7 @@ public class ManagementController {
 
     @PostMapping("/organisations")
     public ResponseEntity<Organisation> addOrganisation(@RequestBody Organisation organisation) {
+        System.out.println("Received organisation: " + organisation);
         Organisation savedOrganisation = managementService.addOrganisation(organisation);
         return ResponseEntity.ok(savedOrganisation);
     }

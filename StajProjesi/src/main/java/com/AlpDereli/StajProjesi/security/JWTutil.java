@@ -1,4 +1,4 @@
-package com.AlpDereli.StajProjesi.security;
+/*package com.AlpDereli.StajProjesi.security;
 
 
 import io.jsonwebtoken.Claims;
@@ -45,4 +45,4 @@ public class JWTutil {
     public boolean validateToken(String token, String username) {
         return (username.equals(extractUsername(token)) && !isTokenExpired(token));
     }
-}
+}*/

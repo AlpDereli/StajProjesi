@@ -1,4 +1,4 @@
-package com.AlpDereli.StajProjesi.security;
+/*package com.AlpDereli.StajProjesi.security;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +26,12 @@ public class JWTRequestFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response, jakarta.servlet.FilterChain filterChain) throws jakarta.servlet.ServletException, IOException {
+
+        String path = request.getRequestURI();
+        if ("/login".equals(path)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
         final String authorizationHeader = request.getHeader("Authorization");
 
         String username = null;
@@ -46,9 +52,9 @@ public class JWTRequestFilter extends OncePerRequestFilter {
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                 // Set the Authentication in the SecurityContext
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);*/
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);////////
             }
         }
         filterChain.doFilter(request, response);
     }
-}
+}*/
