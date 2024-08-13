@@ -1,5 +1,6 @@
 package com.AlpDereli.StajProjesi.model;
 
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,13 +8,14 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class User {
+@Table(name = "admins")
+public class Admin {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String username;
-    private String password;
+    private int id;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+
+    private String name;
+    private String password;
 }
