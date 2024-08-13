@@ -4,11 +4,8 @@ package com.AlpDereli.StajProjesi.service;
 import com.AlpDereli.StajProjesi.model.*;
 import com.AlpDereli.StajProjesi.repository.AdminRepository;
 import com.AlpDereli.StajProjesi.repository.OrganizationRepository;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.logging.Logger;
 
 @Service
 public class ManagementService {
