@@ -1,12 +1,11 @@
 package com.AlpDereli.StajProjesi.model;
 
-
-public class AdminDto {
+public class OrganizationDto {
 
     private String name;
     private String password;
 
-    // Getters and Setters
+
     public String getName() {
         return name;
     }
