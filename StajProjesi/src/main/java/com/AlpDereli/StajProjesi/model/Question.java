@@ -1,6 +1,7 @@
 package com.AlpDereli.StajProjesi.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private int id;
 
     @Size(max = 2000, message = "Question text can be at most 2000 characters long")

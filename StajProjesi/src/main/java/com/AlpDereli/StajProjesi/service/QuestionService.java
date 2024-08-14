@@ -20,15 +20,17 @@ public class QuestionService {
 
     public String deleteQuestion(int id, int organizationId, boolean isAdmin) {
         Question question = questionRepository.findById(id).orElse(null);
-        if (question != null) {
+        if (question == null) {
+            throw new RuntimeException("Question not found");
+        }
+
             if (isAdmin || question.getOrganizationId() == organizationId) {
                 questionRepository.delete(question);
             } else {
                 throw new RuntimeException("Unauthorized attempt to delete the question");
             }
-        } else {
-            throw new RuntimeException("Question not found");
-        }
+
+
         return ".";
     }
 
