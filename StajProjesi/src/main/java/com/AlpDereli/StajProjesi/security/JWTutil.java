@@ -45,4 +45,15 @@ public class JWTutil {
     public boolean validateToken(String token, String username) {
         return (username.equals(extractUsername(token)) && !isTokenExpired(token));
     }
+
+    public String generateToken(String name, int organizationId) {
+    return Jwts.builder()
+            .setSubject(name)
+            .claim("organizationId", organizationId) // Add organizationId as a custom claim
+            .setIssuedAt(new Date())
+            .setExpiration(new Date(System.currentTimeMillis() + expiration))
+            .signWith(SignatureAlgorithm.HS256, secretKey)
+            .compact();
+}
+
 }*/

@@ -18,18 +18,34 @@ public class QuestionService {
         this.questionRepository = questionRepository;
     }
 
-    public String deleteQuestion(int id) {
-        questionRepository.deleteById(id);
-        return "Question deleted";
+    public String deleteQuestion(int id, int organizationId, boolean isAdmin) {
+        Question question = questionRepository.findById(id).orElse(null);
+        if (question != null) {
+            if (isAdmin || question.getOrganizationId() == organizationId) {
+                questionRepository.delete(question);
+            } else {
+                throw new RuntimeException("Unauthorized attempt to delete the question");
+            }
+        } else {
+            throw new RuntimeException("Question not found");
+        }
+        return ".";
     }
 
-    public Question updateQuestion(QuestionDto questionDto, int id) {
+    public Question updateQuestion(QuestionDto questionDto, int id, int organizationId, boolean isAdmin) {
         Question findQuestion = questionRepository.findById(id).orElse(null);
         if (findQuestion != null) {
-            findQuestion.setQuestion(questionDto.getQuestion());
-            findQuestion.setAnswer(questionDto.getAnswer());
-            return questionRepository.save(findQuestion);
+            if(findQuestion.getOrganizationId() == organizationId || isAdmin){
+                findQuestion.setQuestion(questionDto.getQuestion());
+                findQuestion.setAnswer(questionDto.getAnswer());
+                return questionRepository.save(findQuestion);
+            }
+            else {
+                throw new RuntimeException("Unauthorized attempt to update the question");
+            }
         }
-        return questionRepository.save(findQuestion);
+        else {
+            throw new RuntimeException("Question not found");
+        }
     }
 }

@@ -22,6 +22,8 @@ public class Question {
     @Size(min = 2, max = 5, message = "A question must have between 2 and 5 options")
     private List<@Size(max = 500, message = "Option text can be at most 500 characters long")String> answer = new ArrayList<String>();
 
+    private int organizationId;
+
 
     public int getId() {
         return id;
@@ -45,5 +47,13 @@ public class Question {
 
     public void setAnswer(@Size(min = 2, max = 5, message = "A question must have between 2 and 5 options") List<@Size(max = 500, message = "Option text can be at most 500 characters long") String> answer) {
         this.answer = answer;
+    }
+
+    public int getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(int organizationId) {
+        this.organizationId = organizationId;
     }
 }
