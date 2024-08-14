@@ -6,6 +6,8 @@ import com.AlpDereli.StajProjesi.repository.OrganizationRepository;
 import com.AlpDereli.StajProjesi.service.ManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,17 +21,18 @@ public class ManagementController {
         this.managementService = managementService;
     }
 
-
-    @PostMapping("/admin/organisations")
+    //  /admin yapısına güvenlik sağlanır mı sor
+    @PostMapping("/organisations")
     public ResponseEntity<Organisation> addOrganisation(@RequestBody Organisation organisation) {
-        System.out.println("Received organisation: " + organisation);
-        Organisation savedOrganisation = managementService.addOrganisation(organisation);
+        boolean b = isAdmin();
+        Organisation savedOrganisation = managementService.addOrganisation(organisation,b);
         return ResponseEntity.ok(savedOrganisation);
     }
 
-    @PutMapping("/admin/update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<String> updateAdmin(@PathVariable int id,@RequestBody AdminDto adminDto) {
-        managementService.updateAdmin(id, adminDto);
+        boolean b = isAdmin();
+        managementService.updateAdmin(id, adminDto,b);
         return ResponseEntity.ok("Admin updated");
 
     }
@@ -45,5 +48,13 @@ public class ManagementController {
     public String sendMail(@RequestBody SendEmailDto sendEmailDto, @PathVariable long id) {
         String s = managementService.sendMail(sendEmailDto,id);
         return (s);
+    }
+
+
+    private boolean isAdmin(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return true;//authentication.getAuthorities().stream()
+        //.anyMatch(role -> role.getAuthority().equals("ADMIN"));
+
     }
 }
