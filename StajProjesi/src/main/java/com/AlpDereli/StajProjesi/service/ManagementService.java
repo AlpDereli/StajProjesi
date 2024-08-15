@@ -20,28 +20,31 @@ public class ManagementService {
     }
 
     public Organisation addOrganisation(Organisation organisation, boolean isAdmin) {
-        if (isAdmin){
-            return organizationRepository.save(organisation);
+        if (!isAdmin){
+            throw new  RuntimeException("Unauthorized attempt to update the question");
 
         }
         else {
-            throw new  RuntimeException("Unauthorized attempt to update the question");
+            return organizationRepository.save(organisation);
         }
     }
 
 
     public void updateAdmin(int id, AdminDto adminDto, boolean isAdmin){
-        if (isAdmin){
+        if (!isAdmin){
+            throw new  RuntimeException("Unauthorized attempt to update the question");
+
+        }
+        else {
             if (adminDto.getName() == null || adminDto.getName().trim().isEmpty()) {
                 throw new IllegalArgumentException("Name cannot be null or empty");
             }
-            Admin find = adminRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
-            find.setName(adminDto.getName());
-            find.setPassword(adminDto.getPassword());
-            adminRepository.save(find);
-        }
-        else {
-            throw new  RuntimeException("Unauthorized attempt to update the question");
+            else {
+                Admin find = adminRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+                find.setName(adminDto.getName());
+                find.setPassword(adminDto.getPassword());
+                adminRepository.save(find);
+            }
         }
     }
 

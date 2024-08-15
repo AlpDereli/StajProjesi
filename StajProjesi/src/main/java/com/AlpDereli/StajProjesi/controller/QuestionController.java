@@ -1,13 +1,9 @@
 package com.AlpDereli.StajProjesi.controller;
 
-import com.AlpDereli.StajProjesi.model.Organisation;
-import com.AlpDereli.StajProjesi.model.Question;
+
 import com.AlpDereli.StajProjesi.model.QuestionDto;
-import com.AlpDereli.StajProjesi.repository.QuestionRepository;
 import com.AlpDereli.StajProjesi.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -44,15 +40,15 @@ public class QuestionController {
     @DeleteMapping("/question_delete/{id}")
     public void deleteQuestion(@PathVariable int id) {
         int orgId = organisationId();
-        boolean b = isAdmin();
-        questionService.deleteQuestion(id, orgId, b);
+        boolean isAdmin = isAdmin();
+        questionService.deleteQuestion(id, orgId, isAdmin);
     }
 
     @PutMapping("/question_update/{id}")
     public void updateQuestion(@RequestBody QuestionDto questionDto, @PathVariable int id) {
         int orgId = organisationId();
-        boolean b = isAdmin();
-        questionService.updateQuestion(questionDto, id, orgId, b);
+        boolean isAdmin = isAdmin();
+        questionService.updateQuestion(questionDto, id, orgId, isAdmin);
     }
 
     private int organisationId(){
@@ -61,7 +57,7 @@ public class QuestionController {
     }
 
     private boolean isAdmin(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return true;//authentication.getAuthorities().stream()
                 //.anyMatch(role -> role.getAuthority().equals("ADMIN"));
 
